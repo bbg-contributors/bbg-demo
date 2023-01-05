@@ -403,7 +403,7 @@
             color:white
           }
 
-          ul,ol,li,h1,h2,h3,h4,h5,h6,th,td,.vcontent *, #veditor{
+          ul,ol,li,h1,h2 ,h3,h4,h5,h6,.vcontent *, #veditor{
             color:white
           }
 
@@ -704,7 +704,7 @@
 
       </ul>
       <div class="d-flex" role="search">
-	  <button class="btn btn-outline-${blog["搜索按钮边框颜色设置为暗色"] ? "dark" : "light"}" onclick="start_search_dialog()" style="color: ${blog["全局主题设置"]["标题栏文字颜色"]}"><i class="fa fa-search"></i> ${langdata["SEARCH_SOMETHING"][lang_name]}</button>
+          <button class="btn btn-outline-${blog["搜索按钮边框颜色设置为暗色"] ? "dark" : "light"}" onclick="start_search_dialog()"><i class="fa fa-search"></i> ${langdata["SEARCH_SOMETHING"][lang_name]}</button>
       </div>
       <div class="d-flex">
          <div style="display:block;padding:2px"></div>
@@ -819,16 +819,7 @@
       scrollTo(0, 0);
     }
 
-    function init_article_metadata() {
-      let lst = blog["文章列表"], arc;
-      for (let i=0; i < lst.length; i++) {
-	arc = lst[i];
-	arc["是否是短文章"] = false;
-      }
-    }
-
     function render_article_list() {
-      init_article_metadata();
       for (let i = 0; i < blog["文章列表"].length; i++) {
         if (blog["文章列表"][i]["是否置顶"] && currentArticleListPageOrder === 1 && blog["文章列表"][i]["是否是短文章"] === false) {
           document.querySelector("#container").innerHTML += `
