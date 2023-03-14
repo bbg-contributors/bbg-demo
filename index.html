@@ -43,6 +43,54 @@
       border-radius: 12px;
     }
 
+    ref {
+      display: none;
+    }
+
+    info-hint, warning-hint, success-hint, danger-hint {
+      display: block;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 15px;
+      background-color: rgb(235, 234, 234);
+    }
+
+    .hint-heading {
+      font-size: 110%;
+    }
+
+    info-hint .hint-heading {
+      color:#0550ae;
+    }
+
+    warning-hint .hint-heading {
+      color:#ae8105;
+    }
+
+    success-hint .hint-heading {
+      color:#1b6e08;
+    }
+
+    danger-hint .hint-heading {
+      color:#ae2105;
+    }
+
+    info-hint {
+      border-left: #0550ae solid 2px;
+    }
+
+    warning-hint {
+      border-left: #ae8105 solid 2px;
+    }
+
+    success-hint {
+      border-left: #1b6e08 solid 2px;
+    }
+
+    danger-hint {
+      border-left: #ae2105 solid 2px;
+    }
+
     .article-content{
       word-break: break-all;
     }
@@ -331,7 +379,7 @@
     }
 
     window.onpopstate = function () {
-      if (window.location.href.indexOf("#top") === -1) {
+      if (window.location.href.indexOf("#top") === -1 && window.location.href.indexOf("#reference") === -1) {
         window.location.reload();
       }
     }
@@ -564,12 +612,83 @@
         "English": "Results",
         "日本語": "検索結果"
       },
+      "REFERENCE": {
+        "简体中文": "参考",
+        "English": "References",
+        "日本語": "References"
+      },
+      "INFO": {
+        "简体中文": "提示",
+        "English": "Hint",
+        "日本語": "Hint"
+      },
+      "WARNING": {
+        "简体中文": "注意",
+        "English": "Warning",
+        "日本語": "Warning"
+      },
+      "SUCCESS": {
+        "简体中文": "成功",
+        "English": "Success",
+        "日本語": "Success"
+      },
+      "DANGER": {
+        "简体中文": "危险",
+        "English": "Danger",
+        "日本語": "Danger"
+      },
       "COULD_NOT_FIND_RESULT": {
         "简体中文": "未找到结果",
         "English": "Could not find a result",
         "日本語": "検索結果はありません"
       }
     }
+
+    function render_ref_tags(){
+      let ref_tags = [];
+      let current_number = 1;
+      for(let i = 0; i < document.getElementsByTagName("ref").length; i++){
+        let ref = document.getElementsByTagName("ref")[i];
+        ref_tags.push({
+          "ref_name": ref.innerText,
+          "ref_id": current_number,
+          "ref_has_target": ref.getAttribute("url")!==undefined&&ref.getAttribute("url")!==null&&ref.getAttribute("url")!==""
+        });
+        document.getElementsByTagName("ref")[i].innerHTML = `<sup style="font-size: 14px;"><a href="#reference_list_id_${current_number}">[${current_number}]</a></sup>`;
+        document.getElementsByTagName("ref")[i].setAttribute("style","display:inline");
+        document.getElementsByTagName("ref")[i].setAttribute("id",`reference_id_${current_number}`);
+        if(ref_tags[ref_tags.length-1].ref_has_target === true){
+          ref_tags[ref_tags.length-1].ref_target = ref.getAttribute("url");
+        }
+        current_number += 1;
+      }
+
+      if(ref_tags.length !== 0){
+        ref_html = `<div id="content_reference_list"><h3>${langdata.REFERENCE[lang_name]}</h3><hr />`;
+        for(const ref of ref_tags){
+          ref_html += `<div id="reference_list_id_${ref.ref_id}"><b>${ref.ref_id}.<a href="#reference_id_${ref.ref_id}">^</a></b>&nbsp;  ${ref.ref_has_target === false?ref.ref_name:`<a href="${ref.ref_target}" target="_blank">${ref.ref_name}</a>`} </div>`;
+        }
+        ref_html += `</div>`;
+        document.getElementById("article-content-html").innerHTML += ref_html;
+      }
+    }
+
+    function render_hint_tags(){
+        for(let i = 0; i < document.getElementsByTagName("info-hint").length; i++){
+          document.getElementsByTagName("info-hint")[i].innerHTML = `<span class="hint-heading"><i class="fa fa-info-circle"></i> ${langdata["INFO"][lang_name]} </span><br />` + document.getElementsByTagName("info-hint")[i].innerHTML;
+        }
+        for(let i = 0; i < document.getElementsByTagName("warning-hint").length; i++){
+          document.getElementsByTagName("warning-hint")[i].innerHTML = `<span class="hint-heading"><i class="fa fa-exclamation-circle"></i> ${langdata["WARNING"][lang_name]} </span><br />` + document.getElementsByTagName("warning-hint")[i].innerHTML;
+        }
+        for(let i = 0; i < document.getElementsByTagName("danger-hint").length; i++){
+          document.getElementsByTagName("danger-hint")[i].innerHTML = `<span class="hint-heading"><i class="fa fa-exclamation-triangle"></i> ${langdata["DANGER"][lang_name]} </span><br />` + document.getElementsByTagName("danger-hint")[i].innerHTML;
+        }
+        for(let i = 0; i < document.getElementsByTagName("success-hint").length; i++){
+          document.getElementsByTagName("success-hint")[i].innerHTML = `<span class="hint-heading"><i class="fa fa-check-circle-o"></i> ${langdata["SUCCESS"][lang_name]} </span><br />` + document.getElementsByTagName("success-hint")[i].innerHTML;
+        }
+      }
+
+
 
     function preview_env_public_comment_fix() {
       if (window.location.href.indexOf("localhost") !== -1 || window.location.href.indexOf("127.0.0.1") !== -1) {
@@ -1341,6 +1460,9 @@
         .then(function (response) {
           document.querySelector("#article-content").innerHTML += `
             <div id="article-content-html">${marked.parse(response.data)}</div>`;
+
+            render_ref_tags();
+            render_hint_tags();
 
           renderMathInElement(document.getElementById("article-content-html"),{
             delimiters: [
