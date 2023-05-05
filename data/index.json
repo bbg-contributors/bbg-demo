@@ -69,7 +69,7 @@
       "范围包括抖机灵分类下的一言": true
     }
   },
-  "底部信息（格式为markdown）": "Deployed on 2023-05-05 09:17:33 ([0ea22f0](https://github.com/bbg-contributors/bbg/commit/0ea22f0))",
+  "底部信息（格式为markdown）": "Deployed on 2023-05-05 09:22:11 ([1fa4cf1](https://github.com/bbg-contributors/bbg/commit/1fa4cf1))",
   "全站内容授权说明": "",
   "页面列表": [
     {
@@ -138,7 +138,7 @@
   "文章页面显示上一篇下一篇文章导航按钮": true,
   "提供文章文件下载": false,
   "提供复制全文到剪贴板的选项": false,
-  "博客程序版本（禁止修改此值，否则会导致跨版本升级异常）": 20230503,
+  "博客程序版本（禁止修改此值，否则会导致跨版本升级异常）": 20230505,
   "网站域名（包括https://）": "",
   "在对文章列表进行修改后触发rss生成": false,
   "在对文章或页面列表进行修改后触发sitemap.txt生成": false,
