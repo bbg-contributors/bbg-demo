@@ -31,9 +31,8 @@
     "若使用背景图像，设置为": {
       "//": "只能选用以下方案中的一种。",
       "将网站根目录下的background.webp作为背景图像": false,
-      "使用随机二次元图片作为背景图像（浅色背景）": true,
-      "将某个url作为背景图像": false,
-      "若将某个url作为背景图像，这个url是": ""
+      "将某个url作为背景图像": true,
+      "若将某个url作为背景图像，这个url是": "https://api.paugram.com/wallpaper/"
     },
     "第三方主题版本": "",
     "第三方主题文件内容": [],
@@ -69,7 +68,7 @@
       "范围包括抖机灵分类下的一言": true
     }
   },
-  "底部信息（格式为markdown）": "Deployed on 2023-05-27 09:44:43 ([0c8f84b](https://github.com/bbg-contributors/bbg/commit/0c8f84b))",
+  "底部信息（格式为markdown）": "Deployed on 2023-05-27 11:09:28 ([abf0d10](https://github.com/bbg-contributors/bbg/commit/abf0d10))",
   "全站内容授权说明": "",
   "页面列表": [
     {
