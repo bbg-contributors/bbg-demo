@@ -27,12 +27,12 @@
     "标题栏文字颜色": "white",
     "是否使用纯色背景（优先级高于背景图像）": false,
     "若使用纯色背景，颜色为": "",
-    "是否使用背景图像": true,
+    "是否使用背景图像": false,
     "若使用背景图像，设置为": {
       "//": "只能选用以下方案中的一种。",
       "将网站根目录下的background.webp作为背景图像": false,
-      "将某个url作为背景图像": true,
-      "若将某个url作为背景图像，这个url是": "https://api.paugram.com/wallpaper/"
+      "将某个url作为背景图像": false,
+      "若将某个url作为背景图像，这个url是": ""
     },
     "第三方主题版本": "",
     "第三方主题文件内容": [],
@@ -68,7 +68,7 @@
       "范围包括抖机灵分类下的一言": true
     }
   },
-  "底部信息（格式为markdown）": "Deployed on 2023-05-27 11:09:28 ([abf0d10](https://github.com/bbg-contributors/bbg/commit/abf0d10))",
+  "底部信息（格式为markdown）": "Deployed on 2023-05-30 10:05:45 ([581a318](https://github.com/bbg-contributors/bbg/commit/581a318))",
   "全站内容授权说明": "",
   "页面列表": [
     {
