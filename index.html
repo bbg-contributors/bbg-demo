@@ -520,7 +520,7 @@
     content_load_finished = false;
     highlight_css_import_finished = false;
 
-    const langdata = {
+    let langdata = {
       "ARCHIVE_AND_TAGS": {
         "简体中文": "归档和标签",
         "English": "Archive and tags",
@@ -807,14 +807,14 @@
       //todo: fix router
       let nav_base = `<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" id="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" id="navbar_title" href="./index.html" onclick="enter_indexPage();return false;">${blog["博客标题"]}</a>
+    <a class="navbar-brand" id="navbar_title" href="./index.html" onclick="currentArticleListPageOrder=1;enter_indexPage();return false;">${blog["博客标题"]}</a>
     <button class="navbar-toggler" style="border:none;color:white;margin-left:2px" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar_items">
         <li class="nav-item" id="navbar_article_list">
-          <a class="nav-link" href="./index.html?type=internal&function=article_list" onclick="enter_indexPage();return false;">${langdata["ARTICLE_LIST"][lang_name]}</a>
+          <a class="nav-link" href="./index.html?type=internal&function=article_list" onclick="currentArticleListPageOrder=1;enter_indexPage();return false;">${langdata["ARTICLE_LIST"][lang_name]}</a>
         </li>
         <li class="nav-item" id="navbar_archive_and_tags">
           <a class="nav-link" href="./index.html?type=internal&function=archive_and_tags" onclick="enter_archive_and_tags();return false;">${langdata["ARCHIVE_AND_TAGS"][lang_name]}</a>
@@ -838,10 +838,6 @@
           "style",
           "color:" + blog["全局主题设置"]["标题栏文字颜色"] + "!important"
         );
-
-      if (isIndexPage) {
-        document.querySelector("#navbar_title").innerHTML = "";
-      }
 
       if (blog["页面列表"].length === 0) {
       } else {
@@ -934,7 +930,6 @@
     function changeArticleListPageOrderTo(page_order) {
       currentArticleListPageOrder = page_order;
       enter_indexPage();
-      scrollTo(0, 0);
     }
 
     function init_article_metadata() {
@@ -2252,6 +2247,10 @@ if (article_id !== 0 && blog["文章列表"][article_id + 1] != undefined && blo
 
       content_load_finished = true;
       detect_whether_ui_load_finished();
+
+      setTimeout(()=>{
+        scrollTo(0, 0);
+      }, 1);
     }
 
     function enter_friend_book() {
@@ -2265,6 +2264,10 @@ if (article_id !== 0 && blog["文章列表"][article_id + 1] != undefined && blo
 
       content_load_finished = true;
       detect_whether_ui_load_finished();
+
+      setTimeout(()=>{
+        scrollTo(0, 0);
+      }, 1);
 
     }
 
@@ -2281,6 +2284,10 @@ if (article_id !== 0 && blog["文章列表"][article_id + 1] != undefined && blo
 
       content_load_finished = true;
       detect_whether_ui_load_finished();
+
+      setTimeout(()=>{
+        scrollTo(0, 0);
+      }, 1);
     }
 
     function enter_indexPage() {
@@ -2298,6 +2305,11 @@ if (article_id !== 0 && blog["文章列表"][article_id + 1] != undefined && blo
 
       content_load_finished = true;
       detect_whether_ui_load_finished();
+
+      // firefox下这里如果不用setTimeout直接执行scrollTo可能会导致无法滚动
+      setTimeout(()=>{
+        scrollTo(0, 0);
+      }, 1);
     }
 
     function enter_article(article_id) {
@@ -2312,6 +2324,10 @@ if (article_id !== 0 && blog["文章列表"][article_id + 1] != undefined && blo
       render_nav(false);
       render_container();
       render_article_content(article_id);
+
+      setTimeout(()=>{
+        scrollTo(0, 0);
+      }, 1);
     }
 
     function getUrlArgs(variable) {
@@ -2363,6 +2379,12 @@ if (article_id !== 0 && blog["文章列表"][article_id + 1] != undefined && blo
             break;
           default:
             blogContentLicenseText = `${blog["全站内容授权协议"]}`;
+        }
+
+        if (blog["自定义界面文本"]["启用"]){
+          for (let i = 0; i < blog["自定义界面文本"]["列表"].length; i++){
+            langdata[blog["自定义界面文本"]["列表"][i]["key"]][blog["网站语言"]] = blog["自定义界面文本"]["列表"][i]["value"];
+          }
         }
 
         if(blog["Markdown渲染配置"]["根据用户屏幕尺寸渲染图片尺寸"] && blog["Markdown渲染配置"]["在用户点击图片时显示图片查看器"]){
