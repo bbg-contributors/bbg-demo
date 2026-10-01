@@ -72,6 +72,10 @@
     "启用disqus评论": false,
     "disqus设置": {
       "shortname": ""
+    },
+    "启用rustaline评论": false,
+    "rustaline设置": {
+      "serverurl": ""
     }
   },
   "一言设置": {
@@ -92,7 +96,7 @@
       "范围包括抖机灵分类下的一言": true
     }
   },
-  "底部信息（格式为markdown）": "Deployed on 2026-06-21 23:33:55 ([a27c7d9](https://github.com/bbg-contributors/bbg/commit/a27c7d9))",
+  "底部信息（格式为markdown）": "Deployed on 2026-10-01 15:47:26 ([b7ea0ad](https://github.com/bbg-contributors/bbg/commit/b7ea0ad))",
   "全站内容授权说明": "",
   "页面列表": [
     {
